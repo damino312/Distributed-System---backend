@@ -1,4 +1,4 @@
-package com.example.myapplication.exception;
+package com.example.myapplication.mysql.exception;
 
 public class CountryNotFoundException extends RuntimeException {
     public CountryNotFoundException(int id) {

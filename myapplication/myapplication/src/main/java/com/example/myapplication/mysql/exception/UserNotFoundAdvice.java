@@ -1,4 +1,4 @@
-package com.example.myapplication.exception;
+package com.example.myapplication.mysql.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
