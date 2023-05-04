@@ -1,5 +1,6 @@
 package com.example.myapplication.mongodb.controller;
 
+import com.example.myapplication.mongodb.exception.RiverNotFoundException;
 import com.example.myapplication.mongodb.model.River;
 import com.example.myapplication.mongodb.repository.RiverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,35 +22,35 @@ public class RiverController {
     }
 
     @GetMapping("/rivers")
-    List<River> getAllUsers() {
+    List<River> getAllRivers() {
         return riverRepository.findAll();
     }
 
-//    @GetMapping("/River/{id}")
-//    River getRiverId(@PathVariable int id) {
-//        return RiverRepository.findById(id)
-//                .orElseThrow(()-> new RiverNotFoundException(id));
-//    }
+    @GetMapping("/river/{id}")
+    River getRiverId(@PathVariable String id) {
+        return riverRepository.findById(id)
+                .orElseThrow(()-> new RiverNotFoundException(id));
+    }
 
-//    @PutMapping("/River/{id}")
-//    River updateRiver(@RequestBody River newRiver, @PathVariable int id) {
-//        return RiverRepository.findById(id)
-//                .map(River -> {
-//                    River.setName(newRiver.getName());
-//                    River.setCapital(newRiver.getCapital());
-//                    River.setArea(newRiver.getArea());
-//                    River.setPopulation(newRiver.getPopulation());
-//                    return RiverRepository.save(River);
-//                }).orElseThrow(()->new RiverNotFoundException(id));
-//    }
-//    @DeleteMapping("/River/{id}")
-//    String deleteRiver(@PathVariable int id) {
-//        if (!RiverRepository.existsById(id)){
-//            throw new RiverNotFoundException(id);
-//        }
-//        RiverRepository.deleteById(id);
-//        return "User with id " +id+ " has been deleted";
-//    }
+    @PutMapping("/river/{id}")
+    River updateRiver(@RequestBody River newRiver, @PathVariable String id) {
+        return riverRepository.findById(id)
+                .map(River -> {
+                    River.setName_river(newRiver.getName_river());
+                    River.setLength_river(newRiver.getLength_river());
+                    River.setCountries_river(newRiver.getCountries_river());
+                    return riverRepository.save(River);
+                }).orElseThrow(()->new RiverNotFoundException(id));
+
+    }
+    @DeleteMapping("/river/{id}")
+    String deleteRiver(@PathVariable String id) {
+        if (!riverRepository.existsById(id)){
+            throw new RiverNotFoundException(id);
+        }
+        riverRepository.deleteById(id);
+        return "User with id " +id+ " has been deleted";
+    }
 
 }
 
