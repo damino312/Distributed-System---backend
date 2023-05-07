@@ -21,7 +21,7 @@ public class CountryController {
     }
 
     @GetMapping("/counties")
-    List<Country> getAllCountries() {
+    List<Country>  getAllCountries() {
         return countryRepository.findAll();
     }
 

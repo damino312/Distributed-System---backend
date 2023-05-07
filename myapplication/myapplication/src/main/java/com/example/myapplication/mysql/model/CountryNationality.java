@@ -1,9 +1,16 @@
 package com.example.myapplication.mysql.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
-
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "country_nationality")
 public class CountryNationality {
@@ -14,67 +21,42 @@ public class CountryNationality {
     @ManyToOne
     @MapsId("idCountry")
     @JoinColumn(name = "id_country")
-    Country country;
+//    @JsonManagedReference
+    Country country_link;
 
     @ManyToOne
     @MapsId("idNationality")
     @JoinColumn(name = "id_nationality")
-    Nationality nationality;
+//            @JsonManagedReference
+    Nationality nationality_link;
 
     int population;
+
+
+
+
+
+    public CountryNationality(CountryNationalityKey id, Country country_link, Nationality nationality_link, int population) {
+        this.id =  new CountryNationalityKey(country_link.getId_country(), nationality_link.getId_nationality());
+        this.country_link = country_link;
+        this.nationality_link = nationality_link;
+        this.population = population;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CountryNationality that = (CountryNationality) o;
-        return population == that.population && id.equals(that.id) && country.equals(that.country) && nationality.equals(that.nationality);
+        return population == that.population && Objects.equals(id, that.id) && Objects.equals(country_link, that.country_link) && Objects.equals(nationality_link, that.nationality_link);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, country, nationality, population);
+        return Objects.hash(id, country_link, nationality_link, population);
     }
 
-    public CountryNationalityKey getId() {
-        return id;
-    }
 
-    public void setId(CountryNationalityKey id) {
-        this.id = id;
-    }
 
-    public Country getCountry() {
-        return country;
-    }
 
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public Nationality getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(Nationality nationality) {
-        this.nationality = nationality;
-    }
-
-    public int getPopulation() {
-        return population;
-    }
-
-    public void setPopulation(int population) {
-        this.population = population;
-    }
-
-    @Override
-    public String toString() {
-        return "CountryNationality{" +
-                "id=" + id +
-                ", country=" + country +
-                ", nationality=" + nationality +
-                ", population=" + population +
-                '}';
-    }
 }

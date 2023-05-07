@@ -1,9 +1,18 @@
 package com.example.myapplication.mysql.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import java.util.List;
 import java.util.Set;
-
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "country")
 public class Country {
@@ -18,68 +27,27 @@ public class Country {
     private int area_country;
 
     private int population_country;
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "country_link")
+//    List<CountryNationality> populations;
+    public Country(){}
 
-//    @OneToMany(mappedBy = "nationality")
-//    Set<CountryNationality> populations;
-//
-//    public Set<CountryNationality> getPopulations() {
-//        return populations;
-//    }
-//
-//    public void setPopulations(Set<CountryNationality> populations) {
-//        this.populations = populations;
-//    }
-
-    public Integer getId_country() {
-        return id_country;
-    }
-
-    public void setId_country(Integer id_country) {
-        this.id_country = id_country;
-    }
-
-    public String getName_country() {
-        return name_country;
-    }
-
-    public void setName_country(String name_country) {
+    public Country(String name_country, String capital_country, int area_country, int population_country) {
         this.name_country = name_country;
-    }
-
-    public String getCapital_country() {
-        return capital_country;
-    }
-
-    public void setCapital_country(String capital_country) {
         this.capital_country = capital_country;
-    }
-
-    public int getArea_country() {
-        return area_country;
-    }
-
-    public void setArea_country(int area_country) {
         this.area_country = area_country;
-    }
-
-    public int getPopulation_country() {
-        return population_country;
-    }
-
-    public void setPopulation_country(int population_country) {
         this.population_country = population_country;
     }
 
-    @Override
-    public String toString() {
-        return "Country{" +
-                "id_country=" + id_country +
-                ", name_country='" + name_country + '\'' +
-                ", capital_country='" + capital_country + '\'' +
-                ", area_country=" + area_country +
-                ", population_country=" + population_country +
-                '}';
+    public Country(Integer id_country, String name_country, String capital_country, int area_country, int population_country) {
+        this.id_country = id_country;
+        this.name_country = name_country;
+        this.capital_country = capital_country;
+        this.area_country = area_country;
+        this.population_country = population_country;
+//        this.populations = populations;
     }
+
 }
 
 

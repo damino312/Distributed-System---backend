@@ -23,6 +23,7 @@ public class RiverController {
 
     @GetMapping("/rivers")
     List<River> getAllRivers() {
+        System.out.println(riverRepository.findAll());
         return riverRepository.findAll();
     }
 

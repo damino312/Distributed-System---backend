@@ -2,10 +2,18 @@ package com.example.myapplication.mysql.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 
 import java.io.Serializable;
 import java.util.Objects;
 
+
+@Getter
+@Setter
+@ToString
 @Embeddable
 public class CountryNationalityKey implements Serializable {
 
@@ -14,6 +22,13 @@ public class CountryNationalityKey implements Serializable {
 
     @Column(name="id_nationality")
     int idNationality;
+
+    public CountryNationalityKey(){}
+
+    public CountryNationalityKey(int idCountry, int idNationality) {
+        this.idCountry = idCountry;
+        this.idNationality = idNationality;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -28,19 +43,7 @@ public class CountryNationalityKey implements Serializable {
         return Objects.hash(idCountry, idNationality);
     }
 
-    public int getIdCountry() {
-        return idCountry;
-    }
 
-    public void setIdCountry(int idCountry) {
-        this.idCountry = idCountry;
-    }
 
-    public int getIdNationality() {
-        return idNationality;
-    }
 
-    public void setIdNationality(int idNationality) {
-        this.idNationality = idNationality;
-    }
 }

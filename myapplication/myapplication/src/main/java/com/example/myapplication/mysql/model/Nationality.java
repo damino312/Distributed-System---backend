@@ -1,9 +1,17 @@
 package com.example.myapplication.mysql.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import java.util.List;
 import java.util.Set;
-
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "nationality")
 public class Nationality {
@@ -11,39 +19,21 @@ public class Nationality {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_nationality;
     private String name_nationality;
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "nationality_link")
+//    List<CountryNationality> populations;
 
-//    @OneToMany(mappedBy = "country")
-//    Set<CountryNationality> populations;
-//
-//    public Set<CountryNationality> getPopulations() {
-//        return populations;
-//    }
-//
-//    public void setPopulations(Set<CountryNationality> populations) {
-//        this.populations = populations;
-//    }
+    public Nationality(){}
 
-    public int getId_nationality() {
-        return id_nationality;
-    }
-
-    public void setId_nationality(int id_nationality) {
-        this.id_nationality = id_nationality;
-    }
-
-    public String getName_nationality() {
-        return name_nationality;
-    }
-
-    public void setName_nationality(String name_nationality) {
+    public Nationality(String name_nationality) {
         this.name_nationality = name_nationality;
     }
 
-    @Override
-    public String toString() {
-        return "Nationality{" +
-                "id_nationality=" + id_nationality +
-                ", name_nationality='" + name_nationality + '\'' +
-                '}';
+    public Nationality(int id_nationality, String name_nationality) {
+        this.id_nationality = id_nationality;
+        this.name_nationality = name_nationality;
+//        this.populations = populations;
     }
+
+
 }
