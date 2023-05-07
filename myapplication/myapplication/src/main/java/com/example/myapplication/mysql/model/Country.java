@@ -2,6 +2,8 @@ package com.example.myapplication.mysql.model;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "country")
 public class Country {
@@ -16,6 +18,17 @@ public class Country {
     private int area_country;
 
     private int population_country;
+
+//    @OneToMany(mappedBy = "nationality")
+//    Set<CountryNationality> populations;
+//
+//    public Set<CountryNationality> getPopulations() {
+//        return populations;
+//    }
+//
+//    public void setPopulations(Set<CountryNationality> populations) {
+//        this.populations = populations;
+//    }
 
     public Integer getId_country() {
         return id_country;
@@ -55,6 +68,17 @@ public class Country {
 
     public void setPopulation_country(int population_country) {
         this.population_country = population_country;
+    }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "id_country=" + id_country +
+                ", name_country='" + name_country + '\'' +
+                ", capital_country='" + capital_country + '\'' +
+                ", area_country=" + area_country +
+                ", population_country=" + population_country +
+                '}';
     }
 }
 
