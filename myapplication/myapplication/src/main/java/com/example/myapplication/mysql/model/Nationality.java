@@ -2,6 +2,7 @@ package com.example.myapplication.mysql.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +20,9 @@ public class Nationality {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_nationality;
     private String name_nationality;
-//    @JsonBackReference
-//    @OneToMany(mappedBy = "nationality_link")
-//    List<CountryNationality> populations;
+    @JsonManagedReference(value="nationalityRef")
+    @OneToMany(mappedBy = "nationality_link")
+    List<CountryNationality> populations;
 
     public Nationality(){}
 
@@ -29,10 +30,10 @@ public class Nationality {
         this.name_nationality = name_nationality;
     }
 
-    public Nationality(int id_nationality, String name_nationality) {
+    public Nationality(int id_nationality, String name_nationality, List<CountryNationality> populations) {
         this.id_nationality = id_nationality;
         this.name_nationality = name_nationality;
-//        this.populations = populations;
+        this.populations = populations;
     }
 
 

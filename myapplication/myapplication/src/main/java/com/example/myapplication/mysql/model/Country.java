@@ -27,9 +27,9 @@ public class Country {
     private int area_country;
 
     private int population_country;
-//    @JsonBackReference
-//    @OneToMany(mappedBy = "country_link")
-//    List<CountryNationality> populations;
+    @JsonManagedReference(value="countryRef")
+    @OneToMany(mappedBy = "country_link")
+    List<CountryNationality> populations;
     public Country(){}
 
     public Country(String name_country, String capital_country, int area_country, int population_country) {
@@ -39,13 +39,13 @@ public class Country {
         this.population_country = population_country;
     }
 
-    public Country(Integer id_country, String name_country, String capital_country, int area_country, int population_country) {
+    public Country(Integer id_country, String name_country, String capital_country, int area_country, int population_country, List<CountryNationality> populations) {
         this.id_country = id_country;
         this.name_country = name_country;
         this.capital_country = capital_country;
         this.area_country = area_country;
         this.population_country = population_country;
-//        this.populations = populations;
+        this.populations = populations;
     }
 
 }

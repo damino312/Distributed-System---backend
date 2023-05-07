@@ -21,20 +21,19 @@ public class CountryNationality {
     @ManyToOne
     @MapsId("idCountry")
     @JoinColumn(name = "id_country")
-//    @JsonManagedReference
+    @JsonBackReference(value="countryRef")
     Country country_link;
 
     @ManyToOne
     @MapsId("idNationality")
     @JoinColumn(name = "id_nationality")
-//            @JsonManagedReference
+    @JsonBackReference(value="nationalityRef")
     Nationality nationality_link;
 
     int population;
 
-
-
-
+    public CountryNationality() {
+    }
 
     public CountryNationality(CountryNationalityKey id, Country country_link, Nationality nationality_link, int population) {
         this.id =  new CountryNationalityKey(country_link.getId_country(), nationality_link.getId_nationality());
