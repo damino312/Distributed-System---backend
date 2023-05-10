@@ -3,11 +3,11 @@ package com.example.myapplication.mongodb.controller;
 import com.example.myapplication.mongodb.exception.RiverNotFoundException;
 import com.example.myapplication.mongodb.model.River;
 import com.example.myapplication.mongodb.repository.RiverRepository;
+import com.example.myapplication.mysql.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -23,7 +23,6 @@ public class RiverController {
 
     @GetMapping("/rivers")
     List<River> getAllRivers() {
-        System.out.println(riverRepository.findAll());
         return riverRepository.findAll();
     }
 
@@ -51,6 +50,27 @@ public class RiverController {
         }
         riverRepository.deleteById(id);
         return "User with id " +id+ " has been deleted";
+    }
+
+    public void deleteCountryFromRiver(int id) {
+        List<River> arrObj = riverRepository.findByCountryId(id); // выбираает озера, где есть
+
+        for (River obj : arrObj) { //перебирает каждый объект из массива, чтобы залезть массив countries_lake внутри него и удалить страну с заданным id
+            Iterator<Country> iterator = obj.getCountries_river().iterator();
+            while (iterator.hasNext()) {
+                Country country = iterator.next();
+                if (country.getId_country().equals(id)) {
+                    iterator.remove();
+                }
+            }
+            riverRepository.findById(obj.getId_river()) // сразу постим измененные объекты
+                    .map(River -> {
+                        River.setCountries_river(obj.getCountries_river());
+                        return riverRepository.save(River);
+                    });
+
+        }
+
     }
 
 }

@@ -3,9 +3,11 @@ package com.example.myapplication.mongodb.controller;
 import com.example.myapplication.mongodb.exception.RiverNotFoundException;
 import com.example.myapplication.mongodb.model.Mountain;
 import com.example.myapplication.mongodb.repository.MountainRepository;
+import com.example.myapplication.mysql.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -48,5 +50,26 @@ public class MountainController {
         }
         mountainRepository.deleteById(id);
         return "Mountain with id " +id+ " has been deleted";
+    }
+
+    public void deleteCountryFromMountain(int id) {
+        List<Mountain> arrObj = mountainRepository.findByCountryId(id); // выбираает озера, где есть
+
+        for (Mountain obj : arrObj) { //перебирает каждый объект из массива, чтобы залезть массив countries_lake внутри него и удалить страну с заданным id
+            Iterator<Country> iterator = obj.getCountries_mountain().iterator();
+            while (iterator.hasNext()) {
+                Country country = iterator.next();
+                if (country.getId_country().equals(id)) {
+                    iterator.remove();
+                }
+            }
+            mountainRepository.findById(obj.getId_mountain()) // сразу постим измененные объекты
+                    .map(Mountain -> {
+                        Mountain.setCountries_mountain(obj.getCountries_mountain());
+                        return mountainRepository.save(Mountain);
+                    });
+
+        }
+
     }
 }
