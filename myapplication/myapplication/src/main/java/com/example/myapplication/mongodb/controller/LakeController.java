@@ -6,7 +6,6 @@ import com.example.myapplication.mongodb.repository.LakeRepository;
 import com.example.myapplication.mysql.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +17,8 @@ public class LakeController {
 
     @PostMapping("/lake")
     Lake newLake(@RequestBody Lake newLake) {
+        System.out.println(newLake);
+
         return lakeRepository.save(newLake);
     }
 
@@ -39,6 +40,7 @@ public class LakeController {
                     Lake.setName_lake(newLake.getName_lake());
                     Lake.setArea_lake(newLake.getArea_lake());
                     Lake.setCountries_lake(newLake.getCountries_lake());
+                    System.out.println(Lake);
                     return lakeRepository.save(Lake);
                 }).orElseThrow(()->new RiverNotFoundException(id)); // left it be, check when you have time
 

@@ -43,8 +43,10 @@ public class CountryNationalityController {
     // Create a new country-nationality relationship
     @PostMapping("/country-nationality")
     public void createCountryNationality1(@RequestBody CountryNationality countryNationality)  {
-        System.out.println(countryNationality);
-//        countryNationalityRepository.save(countryNationality);
+        CountryNationalityKey countryNationalityKey = new CountryNationalityKey(countryNationality.getCountry_link().getId_country(), countryNationality.getNationality_link().getId_nationality() );
+        countryNationality.setId(countryNationalityKey);
+
+        countryNationalityRepository.save(countryNationality);
 
     }
 

@@ -9,6 +9,7 @@ import com.example.myapplication.mysql.exception.CountryNotFoundException;
 import com.example.myapplication.mysql.model.Country;
 import com.example.myapplication.mysql.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Iterator;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("http://localhost:3000")
 public class CountryController {
+
     @Autowired
     private LakeController lakeController;
     @Autowired
@@ -29,6 +31,7 @@ public class CountryController {
     private RiverController riverController;
 
 
+
     @PostMapping("/country")
     Country newCountry(@RequestBody Country newCountry) {
         return countryRepository.save(newCountry);
@@ -38,6 +41,12 @@ public class CountryController {
     List<Country>  getAllCountries() {
         return countryRepository.findAll();
     }
+
+    @GetMapping("/counties/last-record")
+    Country getLastCountry() {
+        return countryRepository.lastRecord();
+    }
+
 
     @GetMapping("/country/{id}")
     Country getCountryId(@PathVariable int id) {
