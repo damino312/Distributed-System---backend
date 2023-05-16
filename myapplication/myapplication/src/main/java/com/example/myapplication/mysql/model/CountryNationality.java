@@ -35,12 +35,6 @@ public class CountryNationality {
     public CountryNationality() {
     }
 
-    public CountryNationality(CountryNationalityKey id, Country country_link, Nationality nationality_link, int population) {
-        this.id =  new CountryNationalityKey(country_link.getId_country(), nationality_link.getId_nationality());
-        this.country_link = country_link;
-        this.nationality_link = nationality_link;
-        this.population = population;
-    }
 
     @Override
     public boolean equals(Object o) {
