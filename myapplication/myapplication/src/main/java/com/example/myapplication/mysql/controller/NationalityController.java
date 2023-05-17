@@ -2,9 +2,16 @@ package com.example.myapplication.mysql.controller;
 
 import com.example.myapplication.mysql.exception.CountryNotFoundException;
 
+import com.example.myapplication.mysql.model.Country;
+import com.example.myapplication.mysql.model.CountryNationality;
 import com.example.myapplication.mysql.model.Nationality;
 import com.example.myapplication.mysql.repository.CountryNationalityRepository;
 import com.example.myapplication.mysql.repository.NationalityRepository;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +40,9 @@ public class NationalityController {
     @GetMapping("/nationality/{id}")
     Nationality getNationalityId(@PathVariable int id) {
         return nationalityRepository.findById(id)
-                .orElseThrow(()-> new CountryNotFoundException(id)); //let it be
+                .orElseThrow(()-> new CountryNotFoundException(id));//let it be
+
+
     }
 
     @PutMapping("/nationality/{id}")
@@ -52,4 +61,5 @@ public class NationalityController {
         nationalityRepository.deleteById(id);
         return "Nationality with id " +id+ " has been deleted";
     }
+
 }
